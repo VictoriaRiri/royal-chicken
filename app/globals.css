@@ -1,28 +1,36 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #FFD700;
+}
+
+:root {
+  --gold: #FFD700;
+}
 
 body {
   cursor: crosshair;
+  background-color: #050505;
+  color: white;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-@layer components {
-  .glass-card {
-    @apply relative overflow-hidden rounded-[2.5rem] border border-white/10 
-           bg-white/[0.01] backdrop-blur-2xl transition-all duration-700;
-  }
-  
-  .glass-card:hover {
-    @apply -translate-y-3 border-yellow-500/40 bg-white/[0.05];
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7);
-  }
-}
-/* Add this at the bottom of your globals.css */
-@keyframes slideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+/* Wavy Glass Cards - Pure CSS to avoid Tailwind build errors */
+.glass-card {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.7s ease-in-out;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
 }
 
-.cart-drawer {
-  animation: slideIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+.glass-card:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-8px);
+  border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
 }
