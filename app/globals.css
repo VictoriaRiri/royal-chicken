@@ -5,6 +5,7 @@
 body {
   background-color: #000000;
   color: #ffffff;
+  margin: 0;
 }
 
 .organic-blob {
@@ -16,18 +17,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* This is the secret to the shape in your photo */
   border-radius: 60% 40% 70% 30% / 30% 60% 40% 70%;
   transition: all 0.3s ease;
 }
 
 .organic-blob:hover {
-  border-color: #FFD700;
+  border-color: #eab308; /* Tailwind Yellow-500 */
   transform: scale(1.02);
-}
-
-.gold-text {
-  color: #FFD700;
 }
 
 .add-to-cart {
