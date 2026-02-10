@@ -1,36 +1,31 @@
-@import "tailwindcss";
-
-@theme {
-  --color-gold: #FFD700;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --gold: #FFD700;
+  background: #050505;
 }
 
 body {
-  cursor: crosshair;
-  background-color: #050505;
-  color: white;
   margin: 0;
+  padding: 0;
+  color: white;
+  font-family: Arial, sans-serif;
   overflow-x: hidden;
 }
 
-/* Wavy Glass Cards - Pure CSS to avoid Tailwind build errors */
+/* Hardcoded CSS for the Glass Cards to avoid Tailwind glitching */
 .glass-card {
-  position: relative;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.7s ease-in-out;
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .glass-card:hover {
+  background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 215, 0, 0.5);
-  background-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-8px);
-  border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-  box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
+  transform: translateY(-10px);
 }
