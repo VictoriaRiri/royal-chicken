@@ -8,25 +8,26 @@ body {
   background-color: #000000;
   color: #ffffff;
   font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
 }
 
-/* The exact blob shape from your screenshot */
 .organic-blob {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 60% 40% 70% 30% / 30% 60% 40% 70%;
-  transition: all 0.5s ease;
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .organic-blob:hover {
-  border-color: #eab308; /* Gold */
-  transform: translateY(-10px) rotate(2deg);
+  border-color: #eab308;
+  background: rgba(234, 179, 8, 0.03);
+  transform: translateY(-10px) rotate(1deg);
   border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
 }
 
@@ -36,4 +37,14 @@ body {
 
 .gold-text {
   color: #eab308;
+}
+
+/* Safe Typewriter Animation */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.animate-typing {
+  animation: typing 3.5s steps(40, end);
 }
