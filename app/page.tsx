@@ -1,28 +1,59 @@
-export default function Home() {
-  return (
-    <div className="flex flex-col items-center justify-center pt-32 pb-20 px-4 text-center">
-      <header className="mb-24">
-        <h1 className="text-6xl md:text-8xl font-bold tracking-[0.4em] uppercase text-white mb-4">
-          Royal <span className="text-yellow-500/90">Chicken</span>
-        </h1>
-        <p className="text-gray-400 tracking-[0.3em] uppercase text-xs max-w-xl mx-auto leading-loose">
-          Elizabeth Wagura • Slaughter & Delivery Service
-        </p>
-      </header>
+"use client";
+import React, { useState } from 'react';
 
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mb-20">
-        {['Whole Chicken', 'Chicken Parts', 'Special Cuts'].map((item, i) => (
-          <div key={i} className="glass-card p-12 group cursor-pointer border border-white/10 rounded-[2rem] bg-white/[0.02] backdrop-blur-xl">
-            <h3 className="text-xl font-light tracking-widest uppercase mb-4">{item}</h3>
-            <div className="h-[1px] w-12 bg-yellow-500 mx-auto transition-all group-hover:w-full" />
+const PRODUCTS = [
+  { id: 1, title: "Whole Chicken", price: 800 },
+  { id: 2, title: "Chicken Parts", price: 450 },
+  { id: 3, title: "Special Cuts", price: 600 },
+];
+
+export default function Home() {
+  const [cart, setCart] = useState<{title: string, qty: number}[]>([]);
+
+  const addToCart = (title: string) => {
+    setCart(prev => {
+      const exists = prev.find(i => i.title === title);
+      return exists 
+        ? prev.map(i => i.title === title ? {...i, qty: i.qty + 1} : i)
+        : [...prev, { title, qty: 1 }];
+    });
+  };
+
+  const checkout = () => {
+    const message = `Order for Elizabeth Wagura: ${cart.map(i => `${i.qty}x ${i.title}`).join(", ")}`;
+    window.open(`https://wa.me/254720580353?text=${encodeURIComponent(message)}`);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col items-center p-8 pt-32">
+      <h1 className="text-6xl font-bold tracking-[0.5em] uppercase mb-4 text-center">
+        Royal <span className="text-yellow-500">Chicken</span>
+      </h1>
+      <p className="text-gray-500 tracking-widest text-xs mb-20">EST. 2026 • ELIZABETH WAGURA</p>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl w-full">
+        {PRODUCTS.map((p) => (
+          <div key={p.id} className="glass-card p-12 flex flex-col items-center text-center">
+            <h2 className="text-xl font-light tracking-widest mb-4 uppercase">{p.title}</h2>
+            <p className="text-yellow-500 font-mono mb-8 text-sm">KES {p.price}</p>
+            <button 
+              onClick={() => addToCart(p.title)}
+              className="mt-auto px-6 py-2 border border-white/20 rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-colors"
+            >
+              Add to Cart
+            </button>
           </div>
         ))}
-      </section>
+      </div>
 
-      <footer className="glass-card p-8 border border-yellow-500/20 rounded-3xl">
-        <p className="text-yellow-500 font-mono text-sm mb-2">Order via WhatsApp or Call</p>
-        <p className="text-white tracking-widest text-lg">0720580353 / 0751509732</p>
-      </footer>
+      {cart.length > 0 && (
+        <button 
+          onClick={checkout}
+          className="fixed bottom-10 bg-yellow-500 text-black px-10 py-4 rounded-full font-bold uppercase tracking-widest shadow-2xl hover:scale-110 transition-transform"
+        >
+          Checkout ({cart.reduce((a, b) => a + b.qty, 0)})
+        </button>
+      )}
     </div>
   );
 }
