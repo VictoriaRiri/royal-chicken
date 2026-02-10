@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const PRODUCTS = [
   { id: 1, name: "WHOLE CHICKEN", price: 500 },
@@ -11,7 +11,19 @@ const PRODUCTS = [
 
 export default function Home() {
   const [cart, setCart] = useState<{ [key: number]: number }>({});
-  const [showCartPanel, setShowCartPanel] = useState(false);
+  const [text, setText] = useState("");
+  const fullText = "We deliver freshly slaughtered chicken and chicken parts straight to your doorstep.";
+
+  // Typewriter Effect
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setText(fullText.slice(0, i));
+      i++;
+      if (i > fullText.length) clearInterval(interval);
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
 
   const updateCart = (id: number, delta: number) => {
     setCart((prev) => {
@@ -35,61 +47,66 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center py-20 px-4 relative overflow-x-hidden">
-      <header className="text-center mb-20 z-10">
-        <h1 className="text-[15vw] md:text-[10rem] font-bold tracking-tighter leading-[0.8] mb-4 text-white uppercase">
-          ROYAL <br /> <span className="text-yellow-500">CHICKEN</span>
+    <div className="min-h-screen flex flex-col items-center py-20 px-4">
+      {/* Hero Section */}
+      <header className="text-center mb-24 max-w-4xl">
+        <h1 className="text-8xl md:text-[12rem] font-bold tracking-tighter leading-none mb-6 business-font italic">
+          Royal <br /> <span className="gold-text">Chicken</span>
         </h1>
-        <p className="text-gray-500 tracking-[0.4em] uppercase text-xs font-medium">
-          ELIZABETH WAGURA • 0720580353
-        </p>
+        
+        {/* Typewriter Banner */}
+        <div className="h-8 mb-8">
+          <p className="text-yellow-500/80 font-mono text-sm tracking-wider uppercase">
+            {text}<span className="animate-pulse">|</span>
+          </p>
+        </div>
+
+        <div className="space-y-2 text-gray-400 tracking-[0.2em] text-[10px] uppercase font-bold">
+          <p>Elizabeth Wagura</p>
+          <p>0720580353 / 0751509732</p>
+          <p className="lowercase tracking-normal text-xs italic">liswagura@gmail.com</p>
+        </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-7xl mb-40 z-10">
+      {/* Side-by-Side Product Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full max-w-7xl mb-48">
         {PRODUCTS.map((p) => (
           <div key={p.id} className="organic-blob group">
             <h3 className="text-xl font-light tracking-widest text-center mb-2 uppercase">{p.name}</h3>
-            <p className="text-yellow-500 font-bold tracking-widest mb-6">KSH {p.price}</p>
+            <p className="gold-text font-bold tracking-widest mb-8 text-2xl">KSH {p.price}</p>
             <button 
               onClick={() => updateCart(p.id, 1)}
-              className="add-to-cart hover:bg-white hover:text-black transition-all"
+              className="border border-white/30 rounded-full px-8 py-3 text-[10px] tracking-[0.3em] hover:bg-white hover:text-black transition-all uppercase"
             >
-              {cart[p.id] ? `IN BAG: ${cart[p.id]}` : "ADD TO CART"}
+              {cart[p.id] ? `In Bag: ${cart[p.id]}` : "Add to Cart"}
             </button>
           </div>
         ))}
       </div>
 
+      {/* Floating Bottom Cart */}
       {total > 0 && (
-        <div className="fixed bottom-10 flex flex-col items-center gap-4 z-50">
-          <button 
-            onClick={() => setShowCartPanel(!showCartPanel)}
-            className="bg-white/10 border border-white/20 backdrop-blur-xl text-white px-8 py-3 rounded-full text-sm font-bold hover:bg-white/20 transition-all"
-          >
-            {showCartPanel ? "CLOSE CART" : `VIEW CART (KSH ${total})`}
-          </button>
-          
-          {showCartPanel && (
-            <div className="bg-black/90 border border-white/10 p-6 rounded-[2rem] backdrop-blur-2xl w-[300px] shadow-2xl animate-in fade-in slide-in-from-bottom-4">
-              <p className="text-xs text-gray-500 mb-4 tracking-widest uppercase">Your Selection</p>
-              {PRODUCTS.filter(p => cart[p.id]).map(p => (
-                <div key={p.id} className="flex justify-between items-center mb-3">
-                  <span className="text-sm">{p.name}</span>
-                  <div className="flex items-center gap-3">
-                    <button onClick={() => updateCart(p.id, -1)} className="text-yellow-500 font-bold px-2">-</button>
-                    <span>{cart[p.id]}</span>
-                    <button onClick={() => updateCart(p.id, 1)} className="text-yellow-500 font-bold px-2">+</button>
+        <div className="fixed bottom-10 z-50 flex flex-col items-center w-full max-w-md px-6 animate-in fade-in slide-in-from-bottom-10">
+          <div className="w-full bg-white/5 border border-white/10 backdrop-blur-2xl p-6 rounded-[2.5rem] shadow-2xl">
+             <div className="max-h-40 overflow-y-auto mb-4 pr-2 custom-scrollbar">
+                {PRODUCTS.filter(p => cart[p.id]).map(p => (
+                  <div key={p.id} className="flex justify-between items-center mb-2 text-xs">
+                    <span className="tracking-widest uppercase">{p.name}</span>
+                    <div className="flex items-center gap-4 bg-white/10 px-3 py-1 rounded-full">
+                      <button onClick={() => updateCart(p.id, -1)} className="text-yellow-500 font-bold">-</button>
+                      <span className="font-mono">{cart[p.id]}</span>
+                      <button onClick={() => updateCart(p.id, 1)} className="text-yellow-500 font-bold">+</button>
+                    </div>
                   </div>
-                </div>
-              ))}
-              <button 
+                ))}
+             </div>
+             <button 
                 onClick={handleWhatsApp}
-                className="w-full bg-yellow-500 text-black py-4 rounded-xl font-black mt-4 hover:scale-[1.02] active:scale-95 transition-all uppercase text-sm"
+                className="w-full bg-yellow-500 text-black py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-[1.02] transition-transform"
               >
-                CHECKOUT ON WHATSAPP
+                Checkout: KSH {total}
               </button>
-            </div>
-          )}
+          </div>
         </div>
       )}
     </div>
