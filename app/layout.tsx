@@ -1,17 +1,14 @@
-import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Royal Chicken | Elizabeth Wagura",
+export const metadata = {
+  title: "Royal Chicken",
   icons: { icon: '/icon.svg' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-white text-black antialiased">
-        {children}
-      </body>
+      <body className="bg-black">{children}</body>
     </html>
   );
 }
