@@ -3,17 +3,25 @@
 @tailwind utilities;
 
 body {
-  background: #000;
+  background-color: #000;
   cursor: crosshair;
 }
 
+/* Rounded squares that react uniquely on hover */
 .product-card {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 
-/* Each card reacts differently on hover */
-.product-card:nth-child(1):hover { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-.product-card:nth-child(2):hover { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-.product-card:nth-child(3):hover { border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
-.product-card:nth-child(4):hover { transform: rotate(5deg) scale(1.05); }
-.product-card:nth-child(5):hover { transform: rotate(-5deg) scale(1.05); }
+.product-card:nth-child(odd):hover {
+  border-radius: 20% 60% 30% 70% / 60% 30% 70% 40%;
+}
+
+.product-card:nth-child(even):hover {
+  border-radius: 60% 30% 70% 20% / 30% 60% 40% 70%;
+}
+
+.product-card:hover {
+  background: rgba(255, 215, 0, 0.04);
+  transform: translateY(-8px);
+}
