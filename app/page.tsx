@@ -11,11 +11,10 @@ const PRODUCTS = [
 
 export default function Home() {
   const [cart, setCart] = useState<{ [key: number]: number }>({});
-  const [mounted, setMounted] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  // Prevention: Ensure code only runs on the client to stop hydration crashes
   useEffect(() => {
-    setMounted(true);
+    setIsClient(true);
   }, []);
 
   const updateCart = (id: number, delta: number) => {
@@ -39,19 +38,20 @@ export default function Home() {
     window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
   };
 
-  if (!mounted) return <div className="min-h-screen bg-black" />;
+  // If we aren't on the client yet, show a black screen to prevent mismatch
+  if (!isClient) return <div className="min-h-screen bg-black" />;
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-20 px-4">
+    <div className="min-h-screen bg-black text-white flex flex-col items-center py-20 px-4">
       {/* Hero Section */}
       <header className="text-center mb-16 max-w-5xl">
-        <h1 className="text-[12vw] md:text-[10rem] font-bold tracking-tighter leading-none mb-4 business-font italic text-white">
+        <h1 className="text-[12vw] md:text-[10rem] font-bold tracking-tighter leading-none mb-4 business-font italic">
           Royal <br /> <span className="gold-text">Chicken</span>
         </h1>
         
-        {/* Simplified Typewriter Banner (CSS Animation) */}
-        <div className="mb-10 overflow-hidden border-r-2 border-yellow-500 whitespace-nowrap mx-auto animate-typing max-w-fit">
-          <p className="text-yellow-500 font-mono text-xs md:text-sm tracking-tighter uppercase">
+        {/* CSS-Only Typewriter (Zero JS logic = No crashes) */}
+        <div className="flex justify-center mb-10">
+          <p className="text-yellow-500 font-mono text-[10px] md:text-xs tracking-tighter uppercase overflow-hidden border-r-2 border-yellow-500 whitespace-nowrap animate-typewriter-effect max-w-fit">
             We deliver freshly slaughtered chicken straight to your doorstep.
           </p>
         </div>
@@ -63,7 +63,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Side-by-Side Grid */}
+      {/* Product Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-7xl mb-48">
         {PRODUCTS.map((p) => (
           <div key={p.id} className="organic-blob group">
@@ -79,25 +79,25 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Bottom Fixed Cart Section */}
+      {/* Floating Bottom Cart */}
       {total > 0 && (
         <div className="fixed bottom-6 left-0 right-0 flex justify-center px-4 z-50">
-          <div className="w-full max-w-lg bg-white/5 border border-white/10 backdrop-blur-2xl p-6 rounded-[2.5rem] shadow-2xl ring-1 ring-white/20">
+          <div className="w-full max-w-lg bg-white/10 border border-white/20 backdrop-blur-xl p-6 rounded-[2.5rem] shadow-2xl">
              <div className="max-h-32 overflow-y-auto mb-4 space-y-2">
                 {PRODUCTS.filter(p => cart[p.id]).map(p => (
                   <div key={p.id} className="flex justify-between items-center text-[10px] tracking-widest uppercase">
                     <span>{p.name}</span>
-                    <div className="flex items-center gap-4 bg-white/10 px-3 py-1 rounded-full">
-                      <button onClick={() => updateCart(p.id, -1)} className="text-yellow-500 hover:scale-150 transition-transform">-</button>
+                    <div className="flex items-center gap-4">
+                      <button onClick={() => updateCart(p.id, -1)} className="text-yellow-500 text-xl">-</button>
                       <span className="text-white">{cart[p.id]}</span>
-                      <button onClick={() => updateCart(p.id, 1)} className="text-yellow-500 hover:scale-150 transition-transform">+</button>
+                      <button onClick={() => updateCart(p.id, 1)} className="text-yellow-500 text-xl">+</button>
                     </div>
                   </div>
                 ))}
              </div>
              <button 
                 onClick={handleWhatsApp}
-                className="w-full bg-yellow-500 text-black py-5 rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:brightness-110 active:scale-95 transition-all shadow-lg"
+                className="w-full bg-yellow-500 text-black py-5 rounded-2xl font-black text-xs uppercase tracking-[0.3em] active:scale-95 transition-all shadow-lg"
               >
                 Go to Cart • KES {total}
               </button>
