@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,40 +7,33 @@
 body {
   background-color: #000000;
   color: #ffffff;
-  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
 }
 
+/* The exact blob shape from your screenshot */
 .organic-blob {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  padding: 4rem 2rem;
+  backdrop-filter: blur(10px);
+  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Starting organic shape */
   border-radius: 60% 40% 70% 30% / 30% 60% 40% 70%;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.5s ease;
 }
 
-/* Mouse Hover Reaction - the blob "morphs" */
 .organic-blob:hover {
-  border-color: #eab308; /* Yellow-500 */
-  background: rgba(255, 215, 0, 0.02);
-  transform: translateY(-10px) scale(1.03);
-  /* The morphing shape effect */
+  border-color: #eab308; /* Gold */
+  transform: translateY(-10px) rotate(2deg);
   border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
 }
 
-.add-to-cart {
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 9999px;
-  padding: 0.7rem 2.5rem;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  font-weight: bold;
-  letter-spacing: 0.2em;
-  background: transparent;
-  color: white;
+.business-font {
+  font-family: 'Playfair Display', serif;
+}
+
+.gold-text {
+  color: #eab308;
 }
