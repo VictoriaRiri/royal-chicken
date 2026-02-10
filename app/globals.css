@@ -2,30 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  background: #050505;
-}
-
 body {
-  margin: 0;
-  padding: 0;
+  background: #050505;
   color: white;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
 }
 
-/* Hardcoded CSS for the Glass Cards to avoid Tailwind glitching */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 24px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border-radius: 32px;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 215, 0, 0.5);
-  transform: translateY(-10px);
+  border-color: rgba(255, 215, 0, 0.4);
+  background: rgba(255, 215, 0, 0.02);
+  transform: translateY(-12px) scale(1.02);
+}
+
+.royal-button {
+  background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
+  color: black;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 12px 24px;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px -5px rgba(255, 215, 0, 0.3);
+}
+
+.royal-button:hover {
+  box-shadow: 0 15px 30px -5px rgba(255, 215, 0, 0.5);
+  transform: scale(1.05);
 }
