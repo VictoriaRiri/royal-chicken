@@ -1,29 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.font-quirky {
-  font-family: 'Gaegu', cursive; /* Matches the organic quirky look */
-}
-
 body {
-  background: #050505;
+  background: #000;
   cursor: crosshair;
 }
 
 .product-card {
-  transition: border-radius 0.5s ease, transform 0.5s ease;
+  backdrop-filter: blur(10px);
 }
 
-/* Different reactions for different cards on hover */
-.product-card:nth-child(1):hover { border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%; }
-.product-card:nth-child(2):hover { border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
-.product-card:nth-child(3):hover { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-.product-card:nth-child(4):hover { transform: rotate(3deg) scale(1.05); }
-.product-card:nth-child(5):hover { transform: rotate(-3deg) scale(1.05); }
-
-.product-card:hover {
-  background: rgba(255, 215, 0, 0.05);
-}
+/* Each card reacts differently on hover */
+.product-card:nth-child(1):hover { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+.product-card:nth-child(2):hover { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+.product-card:nth-child(3):hover { border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
+.product-card:nth-child(4):hover { transform: rotate(5deg) scale(1.05); }
+.product-card:nth-child(5):hover { transform: rotate(-5deg) scale(1.05); }
