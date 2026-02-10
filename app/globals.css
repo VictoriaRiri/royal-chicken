@@ -26,25 +26,25 @@ body {
 
 .organic-blob:hover {
   border-color: #eab308;
-  background: rgba(234, 179, 8, 0.03);
-  transform: translateY(-10px) rotate(1deg);
+  background: rgba(234, 179, 8, 0.05);
+  transform: translateY(-10px);
   border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
 }
 
-.business-font {
-  font-family: 'Playfair Display', serif;
-}
+.business-font { font-family: 'Playfair Display', serif; }
+.gold-text { color: #eab308; }
 
-.gold-text {
-  color: #eab308;
-}
-
-/* Safe Typewriter Animation */
+/* CSS Typewriter - Bulletproof */
 @keyframes typing {
   from { width: 0 }
   to { width: 100% }
 }
+@keyframes blink {
+  50% { border-color: transparent }
+}
 
-.animate-typing {
-  animation: typing 3.5s steps(40, end);
+.animate-typewriter-effect {
+  animation: 
+    typing 4s steps(50, end),
+    blink 0.8s step-end infinite;
 }
