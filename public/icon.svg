@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="16" cy="16" r="16" fill="#050505"/>
+  
+  <path d="M13 8L16 11L19 8L18 13H14L13 8Z" fill="#FFD700"/>
+  
+  <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle" 
+        fill="#FFD700" font-family="Arial, sans-serif" font-weight="900" font-size="12">
+    RC
+  </text>
+</svg>
