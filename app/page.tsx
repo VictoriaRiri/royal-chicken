@@ -19,29 +19,31 @@ export default function Home() {
   const total = PRODUCTS.reduce((acc, p) => acc + (cart[p.id] || 0) * p.price, 0);
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-20 px-6">
-      <header className="text-center mb-24">
-        <h1 className="text-7xl md:text-9xl font-black tracking-tighter uppercase leading-none italic">
-          ROYAL <br /><span className="text-yellow-500">CHICKEN</span>
+    <div className="min-h-screen flex flex-col items-center py-12 px-6">
+      <header className="text-center mb-16">
+        <h1 className="text-6xl md:text-8xl font-black uppercase leading-none text-[#FF5F15] drop-shadow-sm">
+          Royal <br />Chicken
         </h1>
-        <p className="text-gray-500 tracking-[0.4em] uppercase text-[10px] mt-6 font-bold">
-          Elizabeth Wagura • 0720580353
+        <p className="bg-[#FF5F15] text-white px-4 py-1 inline-block mt-4 font-bold rounded-lg rotate-2">
+          ELIZABETH WAGURA • 0720580353
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mb-40">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
         {PRODUCTS.map((p) => (
           <div 
             key={p.id}
             onClick={() => addToCart(p.id)}
-            className="product-card group relative p-12 bg-white/[0.03] border border-white/10 rounded-[3rem] cursor-pointer hover:border-yellow-500/50 transition-all duration-500"
+            className="product-card group p-10 bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] cursor-pointer hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
           >
-            <h3 className="text-3xl font-bold mb-2 tracking-tight">{p.name}</h3>
-            <p className="text-yellow-500 text-xl font-mono uppercase">KSH {p.price}</p>
+            <h3 className="text-3xl font-black mb-1">{p.name}</h3>
+            <p className="text-[#FF5F15] text-2xl font-black italic underline decoration-black">
+              KSH {p.price}
+            </p>
             
             {cart[p.id] > 0 && (
-              <div className="mt-6 inline-block bg-yellow-500 text-black px-6 py-2 rounded-full text-xs font-black">
-                {cart[p.id]} IN CART
+              <div className="mt-4 bg-black text-white px-4 py-1 inline-block font-black text-sm rounded-md">
+                {cart[p.id]} IN BAG
               </div>
             )}
           </div>
@@ -49,8 +51,8 @@ export default function Home() {
       </div>
 
       {total > 0 && (
-        <div className="fixed bottom-10 z-50">
-          <button className="bg-yellow-500 text-black px-12 py-6 rounded-full text-3xl font-black shadow-[0_20px_50px_rgba(234,179,8,0.3)] hover:scale-105 active:scale-95 transition-all">
+        <div className="fixed bottom-8 w-full px-6 flex justify-center">
+          <button className="bg-[#FF5F15] text-white border-4 border-black px-10 py-5 rounded-2xl text-3xl font-black shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all">
             CHECKOUT: KSH {total}
           </button>
         </div>
