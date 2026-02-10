@@ -25,15 +25,15 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-8 pt-32">
-      <h1 className="text-6xl font-bold tracking-[0.5em] uppercase mb-4 text-center">
+    <div className="min-h-screen flex flex-col items-center p-8 pt-32 text-center">
+      <h1 className="text-6xl md:text-8xl font-bold tracking-[0.5em] uppercase mb-4">
         Royal <span className="text-yellow-500">Chicken</span>
       </h1>
-      <p className="text-gray-500 tracking-widest text-xs mb-20">EST. 2026 • ELIZABETH WAGURA</p>
+      <p className="text-gray-500 tracking-widest text-xs mb-20">ELIZABETH WAGURA • 0720580353</p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl w-full">
         {PRODUCTS.map((p) => (
-          <div key={p.id} className="glass-card p-12 flex flex-col items-center text-center">
+          <div key={p.id} className="glass-card p-12 flex flex-col items-center">
             <h2 className="text-xl font-light tracking-widest mb-4 uppercase">{p.title}</h2>
             <p className="text-yellow-500 font-mono mb-8 text-sm">KES {p.price}</p>
             <button 
