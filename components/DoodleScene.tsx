@@ -1,58 +1,34 @@
 "use client";
-import { motion, useSpring, useMotionValue } from 'framer-motion';
-import React from 'react';
+import { motion } from 'framer-motion';
 
-const CHICKEN_DOODLES = [
-  { icon: "🐔", size: "text-6xl", top: "15%", left: "10%" },
-  { icon: "🐣", size: "text-5xl", top: "25%", left: "80%" },
-  { icon: "🍗", size: "text-7xl", top: "70%", left: "15%" },
-  { icon: "🥚", size: "text-4xl", top: "60%", left: "75%" },
-  { icon: "🐤", size: "text-5xl", top: "10%", left: "50%" },
-  { icon: "👑", size: "text-6xl", top: "80%", left: "45%" },
-];
-
-function Doodle({ doodle }: { doodle: any }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // This creates that "moving away from mouse" effect
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    // Simple logic to wiggle when mouse is near
-    mouseX.set(Math.random() * 20 - 10);
-    mouseY.set(Math.random() * 20 - 10);
-  };
-
-  return (
-    <motion.div
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
-      style={{ 
-        position: 'absolute', 
-        top: doodle.top, 
-        left: doodle.left, 
-        x: springX, 
-        y: springY,
-        cursor: 'pointer'
-      }}
-      whileHover={{ scale: 1.4, rotate: 15 }}
-      className={`${doodle.size} select-none opacity-40 hover:opacity-100 transition-opacity`}
-    >
-      {doodle.icon}
-    </motion.div>
-  );
-}
+// Hand-picked chicken cartoon icons
+const CHICKENS = ["🍗", "👑", "🐔", "🐥", "🐣", "🥚"];
 
 export default function DoodleScene() {
   return (
     <div className="fixed inset-0 -z-10 bg-[#050505] overflow-hidden">
-      {CHICKEN_DOODLES.map((d, i) => (
-        <Doodle key={i} doodle={d} />
+      {/* The "Wavy" Glass Layer */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-yellow-500/20 blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-yellow-600/10 blur-[120px]" />
+      </div>
+
+      {/* Floating Interactive Doodles */}
+      {[...Array(12)].map((_, i) => (
+        <motion.div
+          key={i}
+          drag
+          dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+          whileHover={{ scale: 2, rotate: 20 }}
+          className="absolute cursor-grab active:cursor-grabbing text-4xl opacity-30 hover:opacity-100 transition-opacity"
+          style={{ 
+            left: `${Math.random() * 90}%`, 
+            top: `${Math.random() * 90}%` 
+          }}
+        >
+          {CHICKENS[i % CHICKENS.length]}
+        </motion.div>
       ))}
-      {/* Noise texture to hide any banding */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://res.cloudinary.com/dqcsk8rsc/image/upload/v1664265910/Project%20Images/noise_v9arba.png')]" />
     </div>
   );
 }
