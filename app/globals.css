@@ -1,49 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.font-quirky {
+  font-family: 'Gaegu', cursive; /* Matches the organic quirky look */
+}
+
 body {
-  background-color: #050505;
-  color: white;
+  background: #050505;
+  cursor: crosshair;
 }
 
-/* This creates that specific 'egg/blob' shape from your photo */
-.organic-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  /* The wavy/organic shape secret */
-  border-radius: 60% 40% 70% 30% / 30% 60% 40% 70%;
+.product-card {
+  transition: border-radius 0.5s ease, transform 0.5s ease;
 }
 
-.organic-card:hover {
-  border-color: #FFD700;
-  transform: scale(1.02);
-  border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
-}
+/* Different reactions for different cards on hover */
+.product-card:nth-child(1):hover { border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%; }
+.product-card:nth-child(2):hover { border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
+.product-card:nth-child(3):hover { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+.product-card:nth-child(4):hover { transform: rotate(3deg) scale(1.05); }
+.product-card:nth-child(5):hover { transform: rotate(-3deg) scale(1.05); }
 
-.gold-text {
-  color: #FFD700;
-}
-
-.cart-button {
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 9999px;
-  padding: 0.75rem 2rem;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  margin-top: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.cart-button:hover {
-  background: white;
-  color: black;
+.product-card:hover {
+  background: rgba(255, 215, 0, 0.05);
 }
