@@ -25,7 +25,7 @@ export default function Home() {
           ROYAL <br /><span className="text-yellow-500">CHICKEN</span>
         </h1>
         <p className="text-gray-500 tracking-[0.4em] uppercase text-[10px] mt-6 font-bold">
-          Elizabeth Wagura Boutique • 0720580353
+          Elizabeth Wagura • 0720580353
         </p>
       </header>
 
